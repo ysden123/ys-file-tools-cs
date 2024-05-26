@@ -7,12 +7,18 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel>
-        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-            <Label Margin="5,0,0,0">Choose directory:</Label>
-            <TextBox x:Name="DirectoryText" Width="300" Height="20" Margin="5,0,0,0"/>
-            <Button x:Name="ChooseDirButton" Click="ChooseDirButton_Click" Margin="5,0,0,0">...</Button>
-            <Button x:Name="FindButton" Click="FindButton_Click" Margin="5,0,0,0">Find</Button>
-        </StackPanel>
-        <TextBlock x:Name="ExtensionListText"/>
+        <GroupBox Header="Extensions list">
+            <DockPanel>
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                    <Label Margin="5,0,0,0">Choose directory:</Label>
+                    <TextBox x:Name="DirectoryText" Width="300" Height="20" Margin="5,0,0,0"/>
+                    <Button x:Name="ChooseDirButton" Click="ChooseDirButton_Click" Margin="5,0,0,0">...</Button>
+                    <Button x:Name="FindButton" Click="FindButton_Click" Margin="5,0,0,0">Find</Button>
+                </StackPanel>
+                <Border BorderBrush="Black" BorderThickness="1" Margin="10">
+                    <TextBlock x:Name="ExtensionListText" Padding="5"/>
+                </Border>
+            </DockPanel>
+        </GroupBox>
     </DockPanel>
 </UserControl>
