@@ -10,6 +10,7 @@
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Actions">
                 <MenuItem Header="List empty dirs" Click="MenuItem_EmptyDirs_Click"/>
+                <MenuItem Header="List extensions" Click="MenuItem_Extensions_Click"/>
                 <Separator/>
                 <MenuItem Header="Close" Click="MenuItem_Click"/>
             </MenuItem>
