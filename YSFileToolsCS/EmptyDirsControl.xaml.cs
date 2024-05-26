@@ -10,14 +10,17 @@ namespace YSFileToolsCS
     /// </summary>
     public partial class EmptyDirsControl : UserControl
     {
+        private readonly OpenFolderDialog dialog;
+        private readonly EnumerationOptions enumerationOptions;
         public EmptyDirsControl()
         {
             InitializeComponent();
+            dialog = new OpenFolderDialog();
+            enumerationOptions = new EnumerationOptions();
         }
 
         private void ChooseDirButton_Click(object sender, RoutedEventArgs e)
         {
-            dynamic dialog = new OpenFolderDialog();
             dialog.Title = "Choose initial directory";
             bool? result = dialog.ShowDialog();
             if (result == true)
@@ -36,7 +39,7 @@ namespace YSFileToolsCS
 
             EmptyListText.Text = "Waiting...";
 
-            var enumerationOptions = new EnumerationOptions();
+            
             enumerationOptions.RecurseSubdirectories = true;
 
             var directories = Directory.EnumerateDirectories(DirectoryText.Text, "*", enumerationOptions);

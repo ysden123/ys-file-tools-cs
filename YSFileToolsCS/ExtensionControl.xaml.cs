@@ -10,14 +10,15 @@ namespace YSFileToolsCS
     /// </summary>
     public partial class ExtensionControl : UserControl
     {
+        private readonly OpenFolderDialog dialog;
         public ExtensionControl()
         {
             InitializeComponent();
+            dialog = new OpenFolderDialog();
         }
 
         private void ChooseDirButton_Click(object sender, RoutedEventArgs e)
         {
-            dynamic dialog = new OpenFolderDialog();
             dialog.Title = "Choose initial directory";
             bool? result = dialog.ShowDialog();
             if (result == true)
@@ -45,8 +46,8 @@ namespace YSFileToolsCS
             {
                 FileInfo fileInfo = new FileInfo(file);
                 var ext = fileInfo.Extension;
-                int count;
-                if (extensions.TryGetValue(ext, out count))
+                
+                if (extensions.TryGetValue(ext, out int count))
                 {
                     extensions[ext] = count + 1;
                 }
