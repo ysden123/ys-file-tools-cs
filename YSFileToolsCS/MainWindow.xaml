@@ -12,6 +12,7 @@
                 <MenuItem Header="List empty dirs" Click="MenuItem_EmptyDirs_Click"/>
                 <MenuItem Header="List extensions" Click="MenuItem_Extensions_Click"/>
                 <MenuItem Header="Analyze key words" Click="MenuItem_AnalyzeKeyWords_Click"/>
+                <MenuItem Header="Show on map" Click="MenuItem_ShowOnMap_Click"/>
                 <Separator/>
                 <MenuItem Header="Close" Click="MenuItem_Click"/>
             </MenuItem>

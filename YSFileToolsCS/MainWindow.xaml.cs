@@ -37,7 +37,12 @@ namespace YSFileToolsCS
 
         private void MenuItem_AnalyzeKeyWords_Click(object sender, RoutedEventArgs e)
         {
-            CC.Content=new KeyWordsControl();
+            CC.Content = new KeyWordsControl();
+        }
+
+        private void MenuItem_ShowOnMap_Click(object sender, RoutedEventArgs e)
+        {
+            CC.Content = new ShowOnMapControl();
         }
     }
 }
