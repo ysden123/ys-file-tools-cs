@@ -13,12 +13,18 @@
     <Compile Update="ExtensionControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="KeyWordsControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="EmptyDirsControl.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="ExtensionControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="KeyWordsControl.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">

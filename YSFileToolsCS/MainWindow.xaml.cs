@@ -34,5 +34,10 @@ namespace YSFileToolsCS
         {
             CC.Content = new ExtensionControl();
         }
+
+        private void MenuItem_AnalyzeKeyWords_Click(object sender, RoutedEventArgs e)
+        {
+            CC.Content=new KeyWordsControl();
+        }
     }
 }
