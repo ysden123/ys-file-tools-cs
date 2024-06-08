@@ -44,5 +44,10 @@ namespace YSFileToolsCS
         {
             CC.Content = new ShowOnMapControl();
         }
+
+        private void MenuItem_ShowSpecialFolders_Click(object sender, RoutedEventArgs e)
+        {
+            CC.Content = new ShowSpecialFolderControl();
+        }
     }
 }
