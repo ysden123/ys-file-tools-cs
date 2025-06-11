@@ -1,7 +1,8 @@
-﻿using Microsoft.Win32;
+using Microsoft.Win32;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace YSFileToolsCS
 {
@@ -11,12 +12,10 @@ namespace YSFileToolsCS
     public partial class EmptyDirsControl : UserControl
     {
         private readonly OpenFolderDialog dialog;
-        private readonly EnumerationOptions enumerationOptions;
         public EmptyDirsControl()
         {
             InitializeComponent();
             dialog = new OpenFolderDialog();
-            enumerationOptions = new EnumerationOptions();
         }
 
         private void ChooseDirButton_Click(object sender, RoutedEventArgs e)
@@ -29,7 +28,7 @@ namespace YSFileToolsCS
             }
         }
 
-        private void FindButton_Click(object sender, RoutedEventArgs e)
+        private async void FindButton_Click(object sender, RoutedEventArgs e)
         {
             if (DirectoryText.Text.Length == 0)
             {
@@ -38,21 +37,48 @@ namespace YSFileToolsCS
             }
 
             EmptyListText.Text = "Waiting...";
+            var currentCursor = EmptyListText.Cursor;
+            EmptyListText.Cursor = Cursors.Wait;
+            FindButton.IsEnabled = false;
 
-            
-            enumerationOptions.RecurseSubdirectories = true;
-
-            var directories = Directory.EnumerateDirectories(DirectoryText.Text, "*", enumerationOptions);
-            EmptyListText.Text = "";
-
-            foreach (var directory in directories)
+            try
             {
-                if (!Directory.EnumerateFileSystemEntries(directory).Any())
+                var directories = await GetEmptyList(DirectoryText.Text);
+                if (directories != null)
                 {
-                    EmptyListText.Text += directory;
-                    EmptyListText.Text += "\n";
+                    EmptyListText.Text = "";
+
+                    foreach (var directory in directories)
+                    {
+                        if (!Directory.EnumerateFileSystemEntries(directory).Any())
+                        {
+                            EmptyListText.Text += directory;
+                            EmptyListText.Text += "\n";
+                        }
+                    }
+                }
+                else
+                {
+                    EmptyListText.Text = "Done";
                 }
             }
+            catch (Exception ex)
+            {
+                EmptyListText.Text = $"Exception: {ex.Message}";
+            }
+
+            EmptyListText.Cursor = currentCursor;
+            FindButton.IsEnabled = true;
+        }
+
+        private async Task<IEnumerable<string>> GetEmptyList(string directory)
+        {
+            return (IEnumerable<string>)await Task.Run(() =>
+            {
+                EnumerationOptions enumerationOptions = new();
+                enumerationOptions.RecurseSubdirectories = true;
+                return Directory.EnumerateDirectories(directory, "*", enumerationOptions);
+            });
         }
     }
 }

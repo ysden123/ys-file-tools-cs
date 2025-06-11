@@ -2,6 +2,7 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace YSFileToolsCS
 {
@@ -27,7 +28,7 @@ namespace YSFileToolsCS
             }
         }
 
-        private void FindButton_Click(object sender, RoutedEventArgs e)
+        private async void FindButton_Click(object sender, RoutedEventArgs e)
         {
             if (DirectoryText.Text.Length == 0)
             {
@@ -37,31 +38,60 @@ namespace YSFileToolsCS
 
             ExtensionListText.Text = "Wait...";
 
-            var enumerationOptions = new EnumerationOptions();
-            enumerationOptions.RecurseSubdirectories = true;
+            ExtensionListText.Text = "Waiting...";
+            var currentCursor = ExtensionListText.Cursor;
+            ExtensionListText.Cursor = Cursors.Wait;
+            FindButton.IsEnabled = false;
 
-            var files = Directory.GetFiles(DirectoryText.Text, "*", enumerationOptions);
-            var extensions = new Dictionary<string, int>();
-            foreach (var file in files)
+            try
             {
-                FileInfo fileInfo = new FileInfo(file);
-                var ext = fileInfo.Extension;
-                
-                if (extensions.TryGetValue(ext, out int count))
+                var extensions = await GetExtensions(DirectoryText.Text);
+                if (extensions != null)
                 {
-                    extensions[ext] = count + 1;
+                    ExtensionListText.Text = "";
+                    foreach (var extension in extensions.OrderBy(item => item.Key))
+                    {
+                        ExtensionListText.Text += $"{extension.Key.Replace(".", "")} - {extension.Value}\n";
+                    }
                 }
                 else
                 {
-                    extensions[ext] = 1;
+                    ExtensionListText.Text = "Done";
                 }
             }
-
-            ExtensionListText.Text = "";
-            foreach (var extension in extensions.OrderBy(item => item.Key))
+            catch (Exception ex)
             {
-                ExtensionListText.Text += $"{extension.Key.Replace(".", "")} - {extension.Value}\n";
+                ExtensionListText.Text = $"Exception: {ex.Message}";
             }
+            FindButton.IsEnabled = true;
+            ExtensionListText.Cursor = currentCursor;
+        }
+
+        private async Task<Dictionary<string, int>> GetExtensions(string directory)
+        {
+            return (Dictionary<string, int>)await Task.Run(() =>
+            {
+                var enumerationOptions = new EnumerationOptions();
+                enumerationOptions.RecurseSubdirectories = true;
+
+                var files = Directory.GetFiles(directory, "*", enumerationOptions);
+                var extensions = new Dictionary<string, int>();
+                foreach (var file in files)
+                {
+                    FileInfo fileInfo = new (file);
+                    var ext = fileInfo.Extension;
+
+                    if (extensions.TryGetValue(ext, out int count))
+                    {
+                        extensions[ext] = count + 1;
+                    }
+                    else
+                    {
+                        extensions[ext] = 1;
+                    }
+                }
+                return extensions;
+            });
         }
     }
 }
