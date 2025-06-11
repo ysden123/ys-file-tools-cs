@@ -54,10 +54,8 @@ namespace YSFileToolsCS
                         ExtensionListText.Text += $"{extension.Key.Replace(".", "")} - {extension.Value}\n";
                     }
                 }
-                else
-                {
-                    ExtensionListText.Text = "Done";
-                }
+
+                ExtensionListText.Text += "\nDone";
             }
             catch (Exception ex)
             {
@@ -78,7 +76,7 @@ namespace YSFileToolsCS
                 var extensions = new Dictionary<string, int>();
                 foreach (var file in files)
                 {
-                    FileInfo fileInfo = new (file);
+                    FileInfo fileInfo = new(file);
                     var ext = fileInfo.Extension;
 
                     if (extensions.TryGetValue(ext, out int count))

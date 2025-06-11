@@ -57,10 +57,7 @@ namespace YSFileToolsCS
                         }
                     }
                 }
-                else
-                {
-                    EmptyListText.Text = "Done";
-                }
+                EmptyListText.Text += "\nDone";
             }
             catch (Exception ex)
             {
