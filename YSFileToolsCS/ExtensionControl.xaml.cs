@@ -65,9 +65,9 @@ namespace YSFileToolsCS
             ExtensionListText.Cursor = currentCursor;
         }
 
-        private async Task<Dictionary<string, int>> GetExtensions(string directory)
+        private static async Task<Dictionary<string, int>> GetExtensions(string directory)
         {
-            return (Dictionary<string, int>)await Task.Run(() =>
+            var result = await Task.Run(() =>
             {
                 var enumerationOptions = new EnumerationOptions();
                 enumerationOptions.RecurseSubdirectories = true;
@@ -90,6 +90,7 @@ namespace YSFileToolsCS
                 }
                 return extensions;
             });
+            return result;
         }
     }
 }

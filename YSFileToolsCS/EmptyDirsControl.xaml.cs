@@ -68,14 +68,17 @@ namespace YSFileToolsCS
             FindButton.IsEnabled = true;
         }
 
-        private async Task<IEnumerable<string>> GetEmptyList(string directory)
+        private static async Task<IEnumerable<string>> GetEmptyList(string directory)
         {
-            return (IEnumerable<string>)await Task.Run(() =>
+            var result = await Task.Run(() =>
             {
-                EnumerationOptions enumerationOptions = new();
-                enumerationOptions.RecurseSubdirectories = true;
+                EnumerationOptions enumerationOptions = new()
+                {
+                    RecurseSubdirectories = true
+                };
                 return Directory.EnumerateDirectories(directory, "*", enumerationOptions);
             });
+            return result;
         }
     }
 }

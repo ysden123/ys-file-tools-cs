@@ -34,10 +34,10 @@ namespace YSFileToolsCS
 
             var ka = new KeyAnalizer(this.FileText.Text);
             var allKeys = ka.ReadAllKeys();
-            this.StatisticsText.Text += $"Max level={ka.MaxLevel(allKeys)}\n";
+            this.StatisticsText.Text += $"Max level={KeyAnalizer.MaxLevel(allKeys)}\n";
             this.StatisticsText.Text += $"Count of keys is {allKeys.Count}\n";
 
-            foreach (var entry in ka.FindDuplicates(allKeys))
+            foreach (var entry in KeyAnalizer.FindDuplicates(allKeys))
             {
                 entry.Value.ForEach(keyWord =>
                 {

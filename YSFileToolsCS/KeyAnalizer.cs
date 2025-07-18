@@ -55,7 +55,7 @@ namespace YSFileToolsCS
             return result;
         }
 
-        public int MaxLevel(List<KeyWord> keyWords)
+        public static int MaxLevel(List<KeyWord> keyWords)
         {
             int theMaxLevel = 0;
             foreach (var keyWord in keyWords)
@@ -65,7 +65,7 @@ namespace YSFileToolsCS
             return theMaxLevel;
         }
 
-        public Dictionary<string, List<KeyWord>> FindDuplicates(List<KeyWord> keyWords)
+        public static Dictionary<string, List<KeyWord>> FindDuplicates(List<KeyWord> keyWords)
         {
             var result = new Dictionary<string, List<KeyWord>>();
             foreach (var keyWord in keyWords)
