@@ -50,11 +50,8 @@ namespace YSFileToolsCS
 
                     foreach (var directory in directories)
                     {
-                        if (!Directory.EnumerateFileSystemEntries(directory).Any())
-                        {
-                            EmptyListText.Text += directory;
-                            EmptyListText.Text += "\n";
-                        }
+                        EmptyListText.Text += directory;
+                        EmptyListText.Text += "\n";
                     }
                 }
                 EmptyListText.Text += "\nDone";
@@ -70,15 +67,23 @@ namespace YSFileToolsCS
 
         private static async Task<IEnumerable<string>> GetEmptyList(string directory)
         {
-            var result = await Task.Run(() =>
+            return await Task.Run(() =>
             {
                 EnumerationOptions enumerationOptions = new()
                 {
                     RecurseSubdirectories = true
                 };
-                return Directory.EnumerateDirectories(directory, "*", enumerationOptions);
+                var directories = Directory.EnumerateDirectories(directory, "*", enumerationOptions);
+                var emptyDirList = new List<string>();
+                foreach (var directory in directories)
+                {
+                    if (!Directory.EnumerateFileSystemEntries(directory).Any())
+                    {
+                        emptyDirList.Add(directory);
+                    }
+                }
+                return emptyDirList;
             });
-            return result;
         }
     }
 }

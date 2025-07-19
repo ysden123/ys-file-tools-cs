@@ -69,8 +69,10 @@ namespace YSFileToolsCS
         {
             var result = await Task.Run(() =>
             {
-                var enumerationOptions = new EnumerationOptions();
-                enumerationOptions.RecurseSubdirectories = true;
+                var enumerationOptions = new EnumerationOptions
+                {
+                    RecurseSubdirectories = true
+                };
 
                 var files = Directory.GetFiles(directory, "*", enumerationOptions);
                 var extensions = new Dictionary<string, int>();

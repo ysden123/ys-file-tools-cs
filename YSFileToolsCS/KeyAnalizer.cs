@@ -2,7 +2,7 @@
 
 namespace YSFileToolsCS
 {
-    internal class KeyAnalizer
+    internal class KeyAnalizer(string path)
     {
         private record CurrentStatus(int Level, KeyWord? LastKeyWord, KeyWord? ParentKeyWord)
         {
@@ -16,18 +16,13 @@ namespace YSFileToolsCS
                 return theParentKeyWord;
             }
         }
-        private readonly string _path;
-        public KeyAnalizer(string path)
-        {
-            _path = path;
-        }
 
         public List<KeyWord> ReadAllKeys()
         {
             var keyWords = new List<KeyWord>();
 
             var currentStatus = new CurrentStatus(0, null, null);
-            foreach (string line in File.ReadLines(_path))
+            foreach (string line in File.ReadLines(path))
             {
                 if (line.Length == 0) continue;
                 ExtractKeyWord(line, out string key, out int level);
