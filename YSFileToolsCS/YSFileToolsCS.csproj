@@ -6,11 +6,17 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
-    <AssemblyVersion>4.3.1</AssemblyVersion>
+    <AssemblyVersion>4.4.1</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="MetadataExtractor" Version="2.8.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="common">
+      <HintPath>..\..\common-cs\common\bin\Release\net9.0\common.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
