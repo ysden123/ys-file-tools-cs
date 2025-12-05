@@ -39,7 +39,7 @@ namespace YSFileToolsCS
                 Environment.SpecialFolder selectedItem = (Environment.SpecialFolder)FolderList.SelectedItem;
                 FolderText.Text = Environment.GetFolderPath(selectedItem);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 FolderText.Text = string.Empty;
             }

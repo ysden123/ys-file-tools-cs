@@ -49,5 +49,10 @@ namespace YSFileToolsCS
         {
             CC.Content = new ShowSpecialFolderControl();
         }
+
+        private void MenuItem_ConvertImageToICO_Click(object sender, RoutedEventArgs e)
+        {
+            CC.Content = new ConvertImageToICOControl();
+        }
     }
 }

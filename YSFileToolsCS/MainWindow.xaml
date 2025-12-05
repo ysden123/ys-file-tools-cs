@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YSFileToolsCS"
         mc:Ignorable="d"
-        Title="YS File Tools " Height="450" Width="800" WindowStartupLocation="CenterScreen">
+        Title="YS File Tools " Height="450" Width="1000" WindowStartupLocation="CenterScreen">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Actions">
@@ -14,6 +14,7 @@
                 <MenuItem Header="Analyze key words" Click="MenuItem_AnalyzeKeyWords_Click"/>
                 <MenuItem Header="Show on map" Click="MenuItem_ShowOnMap_Click"/>
                 <MenuItem Header="Show special folders" Click="MenuItem_ShowSpecialFolders_Click"/>
+                <MenuItem Header="Convert image to ICO" Click="MenuItem_ConvertImageToICO_Click"/>
                 <Separator/>
                 <MenuItem Header="Close" Click="MenuItem_Click"/>
             </MenuItem>

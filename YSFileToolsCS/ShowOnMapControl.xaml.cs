@@ -46,15 +46,14 @@ namespace YSFileToolsCS
                     return;
                 }
 
-                var location = gps.GetGeoLocation();
-                if (location == null)
-                {
-                    MessageBox.Show("No location found");
-                }
-                else
+                if (gps.TryGetGeoLocation(out GeoLocation location))
                 {
                     var url = $"https://www.google.com/maps/search/?api=1&query={location.Latitude.ToString()},{location.Longitude.ToString()}";
                     Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+                }
+                else
+                {
+                    MessageBox.Show("No location found");
                 }
             }
             catch (Exception ex)
