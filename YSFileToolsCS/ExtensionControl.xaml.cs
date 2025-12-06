@@ -87,7 +87,7 @@ namespace YSFileToolsCS
                 foreach (var file in files)
                 {
                     FileInfo fileInfo = new(file);
-                    var ext = fileInfo.Extension;
+                    var ext = fileInfo.Extension.ToLower();
 
                     if (extensions.TryGetValue(ext, out int count))
                     {
