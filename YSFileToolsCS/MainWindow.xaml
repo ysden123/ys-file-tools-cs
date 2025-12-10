@@ -15,6 +15,7 @@
                 <MenuItem Header="Show on map" Click="MenuItem_ShowOnMap_Click"/>
                 <MenuItem Header="Show special folders" Click="MenuItem_ShowSpecialFolders_Click"/>
                 <MenuItem Header="Convert image to ICO" Click="MenuItem_ConvertImageToICO_Click"/>
+                <MenuItem Header="Find duplicates" Click="MenuItem_FindDuplicates_Click"/>
                 <Separator/>
                 <MenuItem Header="Close" Click="MenuItem_Click"/>
             </MenuItem>
