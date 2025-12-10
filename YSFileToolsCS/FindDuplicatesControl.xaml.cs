@@ -1,18 +1,11 @@
 using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
+using Serilog;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace YSFileToolsCS
 {
@@ -21,6 +14,8 @@ namespace YSFileToolsCS
     /// </summary>
     public partial class FindDuplicatesControl : UserControl
     {
+        private static readonly ILogger _logger = Log.ForContext<FindDuplicatesControl>();
+
         private readonly OpenFolderDialog dialog;
 
         public FindDuplicatesControl()
@@ -78,6 +73,7 @@ namespace YSFileToolsCS
             catch (Exception ex)
             {
                 DuplicatesListText.Text = $"Exception: {ex.Message}";
+                _logger.Error($"Error finding duplicates: {ex.Message}");
             }
 
             DuplicatesListText.Cursor = currentCursor;
@@ -132,10 +128,10 @@ namespace YSFileToolsCS
                             }
                         }
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-                        //todo: add logging
                         // Ignore files that cannot be read
+                        _logger.Error($"Error processing files for duplicate check: {ex.Message}");
                     }
                 }
 
@@ -165,7 +161,8 @@ namespace YSFileToolsCS
         {
             if (!File.Exists(filePath))
             {
-                throw new FileNotFoundException($"Файл не найден по пути: {filePath}");
+                _logger.Error($"No file found for path: {filePath}");
+                throw new FileNotFoundException($"No file found for path: {filePath}");
             }
 
             using (var md5 = MD5.Create())
@@ -183,6 +180,11 @@ namespace YSFileToolsCS
                     return sb.ToString();
                 }
             }
+        }
+
+        private void OnDirectoryTextChanged(object sender, TextChangedEventArgs e)
+        {
+            FindButton.IsEnabled = DirectoryText.Text.Length > 0;
         }
     }
 }

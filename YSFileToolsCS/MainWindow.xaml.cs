@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using Serilog;
+using System.IO;
+using System.Windows;
 
 namespace YSFileToolsCS
 {
@@ -9,6 +11,26 @@ namespace YSFileToolsCS
     {
         public MainWindow()
         {
+            var folder = YSCommon.Utils.GetAssemblyFolderInLocalData("ysfiletoolscs");
+#if DEBUG
+            string fileName = Path.Combine(folder, "logs", "ysfiletoolscs-debug.log");
+            Log.Logger = new LoggerConfiguration()
+               .MinimumLevel.Debug()
+               .Enrich.WithThreadId()
+               .WriteTo.File(fileName,
+               rollingInterval: RollingInterval.Month,
+               outputTemplate: "[{Timestamp:yyyy-MM-dd HH:mm:ss} {Level:u3}] {SourceContext} [{ThreadId}] {Message:lj}{NewLine}{Exception}")
+           .CreateLogger();
+#else
+            string fileName = Path.Combine(folder, "logs", "ysfiletoolscs.log");
+            Log.Logger = new LoggerConfiguration()
+               .MinimumLevel.Error()
+               .Enrich.WithThreadId()
+               .WriteTo.File(fileName,
+               rollingInterval: RollingInterval.Month,
+               outputTemplate: "[{Timestamp:yyyy-MM-dd HH:mm:ss} {Level:u3}] {SourceContext} [{ThreadId}] {Message:lj}{NewLine}{Exception}")
+           .CreateLogger();
+#endif
             InitializeComponent();
 
             System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
