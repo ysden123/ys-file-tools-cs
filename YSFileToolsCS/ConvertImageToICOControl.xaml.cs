@@ -10,8 +10,6 @@ namespace YSFileToolsCS
     /// </summary>
     public partial class ConvertImageToICOControl : UserControl
     {
-        private readonly OpenFileDialog openFileDialog = new();
-        private readonly OpenFolderDialog saveFolderDialog = new();
         private readonly AppProperties properties = new();
 
         public ConvertImageToICOControl()
@@ -70,14 +68,18 @@ namespace YSFileToolsCS
         private void SelectSourceFileButton_Click(object sender, RoutedEventArgs e)
         {
             string? sourceFile = properties.GetProperty(AppProperties.IMAGE_TO_CONVERT_FILE);
+            OpenFileDialog openFileDialog = new();
             openFileDialog.Title = "Select Image File";
             openFileDialog.Filter = "Image Files|*.png;*.jpg;*.jpeg;*.bmp;*.gif;*.tiff|All Files|*.*";
+
             if (sourceFile != null)
             {
                 openFileDialog.InitialDirectory = System.IO.Path.GetDirectoryName(sourceFile);
                 openFileDialog.FileName = System.IO.Path.GetFileName(sourceFile);
             }
+            
             bool? result = openFileDialog.ShowDialog();
+            
             if (result == true)
             {
                 ImageFilePathTextBox.Text = openFileDialog.FileName;
@@ -89,12 +91,16 @@ namespace YSFileToolsCS
         private void SelectTargetFolderButton_Click(object sender, RoutedEventArgs e)
         {
             string? targetFolder = properties.GetProperty(AppProperties.TO_IMAGE_TO_CONVERT_PATH);
+            OpenFolderDialog saveFolderDialog = new();
             saveFolderDialog.Title = "Select Target folder";
+
             if (targetFolder != null)
             {
                 saveFolderDialog.InitialDirectory = System.IO.Path.GetDirectoryName(targetFolder);
             }
+            
             bool? result = saveFolderDialog.ShowDialog();
+            
             if (result == true)
             {
                 TargetFolderTextBox.Text = System.IO.Path.Combine(TargetFolderTextBox.Text,

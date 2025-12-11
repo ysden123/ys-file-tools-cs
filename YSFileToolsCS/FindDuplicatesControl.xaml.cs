@@ -16,31 +16,33 @@ namespace YSFileToolsCS
     {
         private static readonly ILogger _logger = Log.ForContext<FindDuplicatesControl>();
 
-        private readonly OpenFolderDialog dialog;
+        /*private readonly OpenFolderDialog dialog;*/
 
         public FindDuplicatesControl()
         {
             InitializeComponent();
-            dialog = new OpenFolderDialog();
             var properties = new AppProperties();
             string? folder = properties.GetProperty(AppProperties.IMAGES_FOLDER);
             if (folder != null)
             {
-                dialog.InitialDirectory = folder;
                 DirectoryText.Text = folder;
             }
         }
 
         private void ChooseDirButton_Click(object sender, RoutedEventArgs e)
         {
+            OpenFolderDialog dialog = new();
             dialog.Title = "Choose initial directory";
             var properties = new AppProperties();
             string? folder = properties.GetProperty(AppProperties.IMAGES_FOLDER);
+
             if (folder != null)
             {
                 dialog.InitialDirectory = folder;
             }
+
             bool? result = dialog.ShowDialog();
+            
             if (result == true)
             {
                 DirectoryText.Text = dialog.FolderName;

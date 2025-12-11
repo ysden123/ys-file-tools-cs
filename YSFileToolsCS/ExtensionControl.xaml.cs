@@ -3,7 +3,6 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using YSCommon;
 
 namespace YSFileToolsCS
 {
@@ -12,30 +11,32 @@ namespace YSFileToolsCS
     /// </summary>
     public partial class ExtensionControl : UserControl
     {
-        private readonly OpenFolderDialog dialog;
         public ExtensionControl()
         {
             InitializeComponent();
-            dialog = new OpenFolderDialog();
             var properties = new AppProperties();
             string? folder = properties.GetProperty(AppProperties.IMAGES_FOLDER);
             if (folder != null)
             {
-                dialog.InitialDirectory = folder;
                 DirectoryText.Text = folder;
             }
         }
 
         private void ChooseDirButton_Click(object sender, RoutedEventArgs e)
         {
+            OpenFolderDialog dialog = new();
+
             dialog.Title = "Choose initial directory";
             var properties = new AppProperties();
             string? folder = properties.GetProperty(AppProperties.IMAGES_FOLDER);
+
             if (folder != null)
             {
                 dialog.InitialDirectory = folder;
             }
+            
             bool? result = dialog.ShowDialog();
+            
             if (result == true)
             {
                 DirectoryText.Text = dialog.FolderName;

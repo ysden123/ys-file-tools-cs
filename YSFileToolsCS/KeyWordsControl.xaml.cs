@@ -22,16 +22,19 @@ namespace YSFileToolsCS
 
         private void ChooseFileButton_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
+            OpenFileDialog openFileDialog = new();
             openFileDialog.Title = "Choose file with key words";
             openFileDialog.Filter = "txt files (*.txt)|*.txt";
             var properties = new AppProperties();
             string? fileName = properties.GetProperty(AppProperties.KEYWORDS_FILE);
+
             if (fileName != null)
             {
                 openFileDialog.FileName = fileName;
             }
+            
             var result = openFileDialog.ShowDialog();
+            
             if (result != null && result == true)
             {
                 this.FileText.Text = openFileDialog.FileName;

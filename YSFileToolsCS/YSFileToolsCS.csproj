@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
-    <AssemblyVersion>6.0.2</AssemblyVersion>
+    <AssemblyVersion>6.1.0</AssemblyVersion>
     <ApplicationIcon>YSFileTools.ico</ApplicationIcon>
   </PropertyGroup>
 
