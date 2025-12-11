@@ -12,6 +12,12 @@ namespace YSFileToolsCS
         public KeyWordsControl()
         {
             InitializeComponent();
+            var properties = new AppProperties();
+            string? fileName = properties.GetProperty(AppProperties.KEYWORDS_FILE);
+            if (fileName != null)
+            {
+                FileText.Text = fileName;
+            }
         }
 
         private void ChooseFileButton_Click(object sender, RoutedEventArgs e)

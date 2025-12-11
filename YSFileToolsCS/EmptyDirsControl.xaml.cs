@@ -16,6 +16,13 @@ namespace YSFileToolsCS
         {
             InitializeComponent();
             dialog = new OpenFolderDialog();
+            var properties = new AppProperties();
+            string? folder = properties.GetProperty(AppProperties.IMAGES_FOLDER);
+            if (folder != null)
+            {
+                dialog.InitialDirectory = folder;
+                DirectoryText.Text = folder;
+            }
         }
 
         private void ChooseDirButton_Click(object sender, RoutedEventArgs e)
