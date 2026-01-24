@@ -26,8 +26,10 @@ namespace YSFileToolsCS
 
         private void ChooseDirButton_Click(object sender, RoutedEventArgs e)
         {
-            OpenFolderDialog dialog = new();
-            dialog.Title = "Choose initial directory";
+            OpenFolderDialog dialog = new()
+            {
+                Title = "Choose initial directory"
+            };
             var properties = new AppProperties();
             string? folder = properties.GetProperty(AppProperties.IMAGES_FOLDER);
             if (folder != null)

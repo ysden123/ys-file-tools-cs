@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
-    <AssemblyVersion>6.1.0</AssemblyVersion>
+    <AssemblyVersion>7.0.0</AssemblyVersion>
     <ApplicationIcon>YSFileTools.ico</ApplicationIcon>
   </PropertyGroup>
 
@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Magick.NET-Q8-x64" Version="14.10.0" />
+    <PackageReference Include="Magick.NET-Q8-x64" Version="14.10.2" />
     <PackageReference Include="MetadataExtractor" Version="2.9.0" />
     <PackageReference Include="Serilog" Version="4.3.0" />
     <PackageReference Include="Serilog.Enrichers.Thread" Version="4.0.0" />
