@@ -49,7 +49,8 @@ namespace YSFileToolsCS
                     collection.Add(resizedImage);
                 }
 
-                collection.Write(TargetFolderTextBox.Text);
+                collection.Write(System.IO.Path.Combine(TargetFolderTextBox.Text,
+                    System.IO.Path.GetFileName(ImageFilePathTextBox.Text).Replace(System.IO.Path.GetExtension(ImageFilePathTextBox.Text), ".ico")));
 
                 properties.SetProperty(AppProperties.IMAGE_TO_CONVERT_FILE, ImageFilePathTextBox.Text);
                 properties.SetProperty(AppProperties.TO_IMAGE_TO_CONVERT_PATH, TargetFolderTextBox.Text);
@@ -91,8 +92,10 @@ namespace YSFileToolsCS
         private void SelectTargetFolderButton_Click(object sender, RoutedEventArgs e)
         {
             string? targetFolder = properties.GetProperty(AppProperties.TO_IMAGE_TO_CONVERT_PATH);
-            OpenFolderDialog saveFolderDialog = new();
-            saveFolderDialog.Title = "Select Target folder";
+            OpenFolderDialog saveFolderDialog = new()
+            {
+                Title = "Select Target folder"
+            };
 
             if (targetFolder != null)
             {
@@ -103,8 +106,7 @@ namespace YSFileToolsCS
             
             if (result == true)
             {
-                TargetFolderTextBox.Text = System.IO.Path.Combine(TargetFolderTextBox.Text,
-                    System.IO.Path.GetFileName(ImageFilePathTextBox.Text).Replace(System.IO.Path.GetExtension(ImageFilePathTextBox.Text), ".ico"));
+                TargetFolderTextBox.Text = saveFolderDialog.FolderName;
                 properties.SetProperty(AppProperties.TO_IMAGE_TO_CONVERT_PATH, TargetFolderTextBox.Text);
                 properties.SaveProperties();
             }
