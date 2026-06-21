@@ -6,7 +6,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media.Imaging;
 
 namespace YSFileToolsCS
 {
@@ -22,7 +21,7 @@ namespace YSFileToolsCS
 
         private void ChooseFileButton_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog()
+            OpenFileDialog openFileDialog = new()
             {
                 Title = "Choose image file",
                 Filter = "Image files (*.dng;*.jpg;*.jpeg;*.tif;*.mp4)|*.dng;*.jpg;*.jpeg;*.tif;*.mp4"
@@ -57,7 +56,7 @@ namespace YSFileToolsCS
 
                 if (gps.TryGetGeoLocation(out GeoLocation location))
                 {
-                    var url = $"https://www.google.com/maps/search/?api=1&query={location.Latitude.ToString()},{location.Longitude.ToString()}";
+                    var url = $"https://www.google.com/maps/search/?api=1&query={location.Latitude},{location.Longitude}";
                     Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
                 }
                 else
@@ -91,12 +90,7 @@ namespace YSFileToolsCS
 
                         if (locationTag != null && !string.IsNullOrEmpty(locationTag.Description))
                         {
-                            MessageBox.Show($"Found GPS Metadata: {locationTag.Description}");
-
-                            // Optional: Parse the ISO 6709 string format (+37.7749-122.4194/)
-                            //todo: remove:ParseIso6709Coordinates(locationTag.Description);
-
-                            var coordinates = locationTag.Description.Trim().TrimEnd('/').Split(new char[] { '+', '-' }, StringSplitOptions.RemoveEmptyEntries);
+                            var coordinates = locationTag.Description.Trim().TrimEnd('/').Split(['+', '-'], StringSplitOptions.RemoveEmptyEntries);
                             var url = $"http://maps.google.com/?q={coordinates[0]},{coordinates[1]}";
                             Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
                         }
